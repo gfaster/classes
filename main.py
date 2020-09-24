@@ -4,6 +4,7 @@ import json
 import os
 
 noclass = ["Lunch"]
+extra_stuff = "?authuser=1&hs=179"
 
 
 class Gtime:
@@ -139,9 +140,12 @@ f.close()
 		# print(f"{t}: {Schedule.get_color(t, arr_ignore=noclass)} ({schd.get_class_name(t, arr_ignore=noclass)}),
 		 # which has a meet link of '{schd.get_next_meet_link(t, arr_ignore=noclass)}'")
 
-extra_stuff = "?authuser=1&hs=179"
+
 # time = Gtime.c_time()
 time = 920
 next_class = schd.get_class_name(time, arr_ignore=noclass)
 link = schd.get_next_meet_link(time, arr_ignore=noclass)
-os.system('start chrome "'+ link + extra_stuff + '"')
+if link:
+	os.system('start chrome "'+ link + extra_stuff + '"')
+else
+	print("no more classes")
