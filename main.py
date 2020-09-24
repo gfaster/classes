@@ -135,15 +135,9 @@ data = json.load(f)
 schd = Schedule(data)
 f.close()
 
-# for i in range(7,15):
-# 	for j in range(60):
-# 		t = 100 * i  + j
-		# print(f"{t}: {Schedule.get_color(t, arr_ignore=noclass)} ({schd.get_class_name(t, arr_ignore=noclass)}),
-		 # which has a meet link of '{schd.get_next_meet_link(t, arr_ignore=noclass)}'")
 
-
-# time = Gtime.c_time()
-time = 920
+time = Gtime.c_time()
+# time = 920
 next_class = schd.get_class_name(time, arr_ignore=noclass)
 link = schd.get_next_meet_link(time, arr_ignore=noclass)
 if link:
