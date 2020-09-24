@@ -1,5 +1,10 @@
 import math as m
 import datetime as dt
+import json
+import os
+
+noclass = ["Lunch"]
+
 
 class Gtime:
 	"""Gavin's time of day object"""
@@ -84,6 +89,7 @@ class Schedule:
 	def __init__(self, courses: dict):
 		self.courses = {}
 		for color in courses:
+			self.courses[color] = {}
 			self.courses[color]["name"] = courses[color]["name"]
 			self.courses[color]["meet_link"] = courses[color]["meet_link"]
 
@@ -92,11 +98,13 @@ class Schedule:
 
 
 
-	def timed_index(time):
+	def timed_index(time, arr_ignore:list = []):
 		time_to_find = Gtime(time)
 		day = Schedule.get_day()
-		print((Schedule.timings[day]))
+		# print((Schedule.timings[day]))
 		for idx, val in enumerate(Schedule.timings[day]):
+			if Schedule.colors[Schedule.schedule[day][idx]] in arr_ignore:
+				continue
 			if Gtime(Schedule.timings[day][idx][1]) > time_to_find:
 				return idx
 			if idx > 0 and Gtime(Schedule.timings[day][idx][1]) <  time_to_find and Gtime(Schedule.timings[day][idx - 1][1]) >=  time_to_find:
@@ -105,18 +113,35 @@ class Schedule:
 
 		return False
 			
-	def get_color(time):
+	def get_color(time, arr_ignore:list = []):
 		day = Schedule.get_day()
-		return Schedule.colors[Schedule.schedule[day][Schedule.timed_index(time)]]
+		return Schedule.colors[Schedule.schedule[day][Schedule.timed_index(time, arr_ignore=arr_ignore)]]
 
-	def get_next_meet_link(self):
+	def get_class_name(self, time, arr_ignore:list = []):
 		day = Schedule.get_day()
-		color = colors
-		return self.courses[color][meet_link]
+		return self.courses[Schedule.get_color(time, arr_ignore=arr_ignore)]["name"]
+
+	def get_next_meet_link(self, time, arr_ignore:list = []):
+		timef = Gtime(time)
+		day = Schedule.get_day()
+		color = Schedule.get_color(timef, arr_ignore=arr_ignore)
+		return self.courses[color]["meet_link"]
 
 
+f = open('gclasses.json',)
+data = json.load(f)
+schd = Schedule(data)
+f.close()
 
+# for i in range(7,15):
+# 	for j in range(60):
+# 		t = 100 * i  + j
+		# print(f"{t}: {Schedule.get_color(t, arr_ignore=noclass)} ({schd.get_class_name(t, arr_ignore=noclass)}),
+		 # which has a meet link of '{schd.get_next_meet_link(t, arr_ignore=noclass)}'")
 
-
-print(Gtime.c_time().to_int())
-print(Schedule.get_color(Gtime.c_time()))
+extra_stuff = "?authuser=1&hs=179"
+# time = Gtime.c_time()
+time = 920
+next_class = schd.get_class_name(time, arr_ignore=noclass)
+link = schd.get_next_meet_link(time, arr_ignore=noclass)
+os.system('start chrome "'+ link + extra_stuff + '"')
