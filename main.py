@@ -5,6 +5,7 @@ import os
 
 noclass = ["Lunch"]
 extra_stuff = "?authuser=1&hs=179"
+jsonfile = "gclasses.json"
 
 
 class Gtime:
@@ -129,7 +130,7 @@ class Schedule:
 		return self.courses[color]["meet_link"]
 
 
-f = open('gclasses.json',)
+f = open(jsonfile,)
 data = json.load(f)
 schd = Schedule(data)
 f.close()
