@@ -5,7 +5,7 @@ import os
 
 noclass = ["Lunch"]
 extra_stuff = "?authuser=1&hs=179"
-jsonfile = "gclasses.json"
+jsonfile = "classes.json"
 
 
 class Gtime:
