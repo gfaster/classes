@@ -142,5 +142,5 @@ next_class = schd.get_class_name(time, arr_ignore=noclass)
 link = schd.get_next_meet_link(time, arr_ignore=noclass)
 if link:
 	os.system('start chrome "'+ link + extra_stuff + '"')
-else
+else:
 	print("no more classes")
