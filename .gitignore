@@ -1,6 +1,5 @@
 # Specify filepatterns you want git to ignore.
 
-*.json
 classes.json
 __pycache__/*
 dist/*

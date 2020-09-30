@@ -1,12 +1,10 @@
 import math as m
 import datetime as dt
-import json
 import os
-import config
+import json
 
-noclass = ["Lunch"]
-extra_stuff = "?authuser=1&hs=179"
-jsonfile = "classes.json"
+with open("config.json") as config_file:
+	config = json.load(config_file)
 
 
 class Gtime:
@@ -86,13 +84,13 @@ class Schedule:
 	def timed_index(time, arr_ignore:list = []):
 		time_to_find = Gtime(time)
 		day = Schedule.get_day()
-		# print((config.timings[day]))
-		for idx, val in enumerate(config.timings[day]):
-			if config.period[config.schedule[day][idx]] in arr_ignore:
+		# print((config["timings"][day]))
+		for idx, val in enumerate(config["timings"][day]):
+			if config["period"][config["schedule"][day][idx]] in arr_ignore:
 				continue
-			if Gtime(config.timings[day][idx][1]) > time_to_find:
+			if Gtime(config["timings"][day][idx][1]) > time_to_find:
 				return idx
-			if idx > 0 and Gtime(config.timings[day][idx][1]) <  time_to_find and Gtime(config.timings[day][idx - 1][1]) >=  time_to_find:
+			if idx > 0 and Gtime(config["timings"][day][idx][1]) <  time_to_find and Gtime(config["timings"][day][idx - 1][1]) >=  time_to_find:
 				return idx
 			
 
@@ -100,7 +98,7 @@ class Schedule:
 			
 	def get_color(time, arr_ignore:list = []):
 		day = Schedule.get_day()
-		return config.period[config.schedule[day][Schedule.timed_index(time, arr_ignore=arr_ignore)]]
+		return config["period"][config["schedule"][day][Schedule.timed_index(time, arr_ignore=arr_ignore)]]
 
 	def get_class_name(self, time, arr_ignore:list = []):
 		day = Schedule.get_day()
@@ -114,16 +112,16 @@ class Schedule:
 
 
 
-data = config.classes
+data = config["classes"]
 schd = Schedule(data)
 
 
 
 time = Gtime.c_time()
 # time = 920
-# next_class = schd.get_class_name(time, arr_ignore=noclass)
-link = schd.get_next_meet_link(time, arr_ignore=noclass)
+# next_class = schd.get_class_name(time, arr_ignore=config["noclass"])
+link = schd.get_next_meet_link(time, arr_ignore=config["noclass"])
 if link:
-	os.system('start chrome "'+ link + extra_stuff + '"')
+	os.system('start chrome "'+ link + config["extra_stuff"] + '"')
 else:
 	print("no more classes")
