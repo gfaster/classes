@@ -1,5 +1,7 @@
 # classes
 
+This generates today's class schedule. 
+
 ## Configuration
 
 to configure:
