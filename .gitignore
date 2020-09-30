@@ -2,3 +2,4 @@
 
 *.json
 classes.json
+__pycache__/*

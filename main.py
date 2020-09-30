@@ -2,6 +2,7 @@ import math as m
 import datetime as dt
 import json
 import os
+import config
 
 noclass = ["Lunch"]
 extra_stuff = "?authuser=1&hs=179"
@@ -69,24 +70,6 @@ class Gtime:
 
 class Schedule:
 
-	#			0			1				2		3		4			5			6			7		8			9
-	colors = ["Yellow", "Light Blue", "Homeroom", "Pink", "Green", "Dark Blue", "Orange", "Purple", "X-Block", "Lunch", "None"]
-	schedule = [
-	[0, 2, 1, 9, 6, 5, 10],
-	[4, 2, 3, 9, 7, 8, 10],
-	[0, 1, 2, 3, 5, 4, 6, 7, 10],
-	[1, 2, 0, 9, 5, 6, 10],
-	[3, 2, 4, 9, 8, 7, 10]
-	]
-
-	timings = [
-	[(800, 920), (920, 945), (945, 1105), (1105, 1135), (1135, 1255), (1305, 1425), (1425, 2400)],
-	[(800, 920), (920, 945), (945, 1105), (1105, 1135), (1135, 1255), (1305, 1425), (1425, 2400)],
-	[(800, 820), (830, 850), (855, 905), (910, 930), (940, 1000), (1010, 1030), (1040, 1100), (1110, 1130), (1130, 2400)],
-	[(800, 920), (920, 945), (945, 1105), (1105, 1135), (1135, 1255), (1305, 1425), (1425, 2400)],
-	[(800, 920), (920, 945), (945, 1105), (1105, 1135), (1135, 1255), (1305, 1425), (1425, 2400)]
-	]
-
 
 	def __init__(self, courses: dict):
 		self.courses = {}
@@ -103,13 +86,13 @@ class Schedule:
 	def timed_index(time, arr_ignore:list = []):
 		time_to_find = Gtime(time)
 		day = Schedule.get_day()
-		# print((Schedule.timings[day]))
-		for idx, val in enumerate(Schedule.timings[day]):
-			if Schedule.colors[Schedule.schedule[day][idx]] in arr_ignore:
+		# print((config.timings[day]))
+		for idx, val in enumerate(config.timings[day]):
+			if config.period[config.schedule[day][idx]] in arr_ignore:
 				continue
-			if Gtime(Schedule.timings[day][idx][1]) > time_to_find:
+			if Gtime(config.timings[day][idx][1]) > time_to_find:
 				return idx
-			if idx > 0 and Gtime(Schedule.timings[day][idx][1]) <  time_to_find and Gtime(Schedule.timings[day][idx - 1][1]) >=  time_to_find:
+			if idx > 0 and Gtime(config.timings[day][idx][1]) <  time_to_find and Gtime(config.timings[day][idx - 1][1]) >=  time_to_find:
 				return idx
 			
 
@@ -117,7 +100,7 @@ class Schedule:
 			
 	def get_color(time, arr_ignore:list = []):
 		day = Schedule.get_day()
-		return Schedule.colors[Schedule.schedule[day][Schedule.timed_index(time, arr_ignore=arr_ignore)]]
+		return config.period[config.schedule[day][Schedule.timed_index(time, arr_ignore=arr_ignore)]]
 
 	def get_class_name(self, time, arr_ignore:list = []):
 		day = Schedule.get_day()
@@ -138,7 +121,7 @@ f.close()
 
 time = Gtime.c_time()
 # time = 920
-next_class = schd.get_class_name(time, arr_ignore=noclass)
+# next_class = schd.get_class_name(time, arr_ignore=noclass)
 link = schd.get_next_meet_link(time, arr_ignore=noclass)
 if link:
 	os.system('start chrome "'+ link + extra_stuff + '"')
