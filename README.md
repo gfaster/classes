@@ -1,6 +1,10 @@
 # classes
 
 to configure:
-put in your meet link for each class in classes.json.template and then rename it to classes.json
+change values in config.json to reflect your classes and periods
 
-for any class where you don't have to do anything, add the color to the noclass variable at the top of main.py
+---
+# Building from source
+
+1) install pyinstaller via pip
+2) run the following command: `pyinstaller --add-data 'config.json;.' main.py`
