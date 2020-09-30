@@ -27,3 +27,50 @@ period = [
 	"Lunch", 		# 9
 	"None"			# 10
 ]
+
+classes = {
+	"Yellow": {
+		"name": "Yellow Class",
+		"meet_link": ""
+	}, 
+	"Light Blue": {
+		"name": "Light Blue Class",
+		"meet_link": ""
+	}, 
+	"Homeroom": {
+		"name": "Homeroom",
+		"meet_link": ""
+	}, 
+	"Pink": {
+		"name": "Pink Class",
+		"meet_link": ""
+	}, 
+	"Green": {
+		"name": "Green Class",
+		"meet_link": ""
+	}, 
+	"Dark Blue": {
+		"name": "Dark Blue Class",
+		"meet_link": ""
+	}, 
+	"Orange": {
+		"name": "Orange Class",
+		"meet_link": ""
+	}, 
+	"Purple": {
+		"name": "Purple Class",
+		"meet_link": ""
+	}, 
+	"X-Block": {
+		"name": "X-Block",
+		"meet_link": ""
+	}, 
+	"Lunch": {
+		"name": "Lunch",
+		"meet_link": ""
+	}, 
+	"None": {
+		"name": "No Class",
+		"meet_link": ""
+	}
+}

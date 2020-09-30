@@ -113,10 +113,10 @@ class Schedule:
 		return self.courses[color]["meet_link"]
 
 
-f = open(jsonfile,)
-data = json.load(f)
+
+data = config.classes
 schd = Schedule(data)
-f.close()
+
 
 
 time = Gtime.c_time()

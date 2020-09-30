@@ -3,3 +3,7 @@
 *.json
 classes.json
 __pycache__/*
+dist/*
+build/*
+*.lnk
+*.spec
