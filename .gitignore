@@ -2,7 +2,8 @@
 
 classes.json
 __pycache__/*
-dist/*
+dist
 build/*
 *.lnk
 *.spec
+Gavin
