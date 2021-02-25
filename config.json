@@ -1,8 +1,6 @@
 {
 	"noclass": ["Lunch"],
-
-	// I'ves tested with firefox and chrome
-	// on windows, use "chrome", linux uses "google-chrome"
+	
 	"browser": "chrome",
 
 	"timings": [
