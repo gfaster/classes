@@ -2,6 +2,7 @@ import math as m
 import datetime as dt
 import os
 import json
+from sys import platform
 
 with open("config.json") as config_file:
 	config = json.load(config_file)
@@ -122,6 +123,9 @@ time = Gtime.c_time()
 # next_class = schd.get_class_name(time, arr_ignore=config["noclass"])
 link = schd.get_next_meet_link(time, arr_ignore=config["noclass"])
 if link:
-	os.system('start chrome "'+ link + config["extra_stuff"] + '"')
-else:
-	print("no more classes")
+	if platform == "win32" or platform == "cygwin":
+		os.system(f'start {config["browser"]} "{link}"')
+	else:
+		os.system(f'{config["browser"]} "{link}"')
+	
+

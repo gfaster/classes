@@ -1,9 +1,8 @@
 # Specify filepatterns you want git to ignore.
 
-classes.json
 __pycache__/*
 dist
-build/*
+build/
 *.lnk
 *.spec
 Gavin
